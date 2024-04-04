@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for data in data %}
+        <p><b>Author</b>         :  <i>{{ data.Authorname }}</i></p>
+        <p><b>Title</b>          :  <i>{{ data.Titlename }}</i></p>
+        <p><b>Content</b>        :  <i>{{ data.Content }}</i></p>
+        <p><b>Published_date</b> :  <i>{{ data.Published_date }}</i></p>
+        <p><b>Published_time</b> :  <i>{{ data.Published_time }}</i></p>
+        
+{% endfor %}
+</body>
+</html>

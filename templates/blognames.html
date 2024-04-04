@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<p lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Here are your Blog Names</h1>
+{% for dt in data %}
+   <p>{{ dt.Blog_name }}</body></p>
+{% endfor %}
+<a href="{% url 'edit' %}">GO Back</a>
+</body>
+</html>
