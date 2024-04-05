@@ -9,6 +9,10 @@
 <body>
 <form method="POST" action="{% url 'create' %}">
 {% csrf_token %}
+        <div class="mb-3">    
+    <label class="form-label">UserName :</label>
+     <input type="text" class="auto-col" name="uname"  required>
+        </div>
     <div class="mb-3">    
     <label class="form-label">Name Your Blog :</label>
     <input type="text" class="auto-col" name="blogname" required>

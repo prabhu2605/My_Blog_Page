@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from blog.models import User, Publisher
+from blog.models import User,Publisher
 import datetime
 
 def welcome(request):
@@ -71,6 +71,7 @@ def Create_blog(request):
         return render(request, 'createblog.html', {'date': date, 'dt': dt})
 
     else:
+        uname = request.POST['uname']
         author_name = request.POST['author']
         title_name = request.POST['title']
         content = request.POST['area']
@@ -81,8 +82,8 @@ def Create_blog(request):
         if Publisher.objects.filter(Blog_name=blog_name).exists():
                 return render(request, 'display2.html', {'msg': Message})
         else:
-                Publisher.objects.create(Authorname=author_name, Titlename=title_name, Content=content, Published_date=date, Published_time=time, Blog_name=blog_name)
-                blogdata = Publisher.objects.filter(Authorname=author_name)
+                Publisher.objects.create(User=uname, Authorname=author_name, Titlename=title_name, Content=content, Published_date=date, Published_time=time, Blog_name=blog_name)
+                blogdata = Publisher.objects.filter(User=uname)
                 return render(request, 'blogdata.html', {'blogdata': blogdata})
 
 def blog_details(request):
@@ -114,8 +115,8 @@ def EditBlog(request):
         else:
             a_name = request.POST['author_name']
             u_name = request.POST['user_name']
-            if (Publisher.objects.filter(Authorname=a_name) and User.objects.filter(Username=u_name)):
-                details = Publisher.objects.filter(Authorname=a_name)
+            if (Publisher.objects.filter(Authorname=a_name) and Publisher.objects.filter(User=u_name)):
+                details = Publisher.objects.filter(User=u_name)
                 return render(request, 'blognames.html', {'data': details})
             else:
                 message = "Invalid Author Name or User Name"
@@ -125,6 +126,8 @@ def Changeblog(request):
         return render(request, 'login.html')
     else:
         if 'edit' in request.POST:
+
+            u_name = request.POST['username']
             author_name = request.POST['author']
             title_name = request.POST['title']
             content = request.POST['area']
@@ -133,6 +136,7 @@ def Changeblog(request):
             blog_name = request.POST['blogname']
             data = Publisher.objects.filter(Blog_name=blog_name)
             for dt in data:
+                dt.User = u_name
                 dt.Authorname = author_name
                 dt.Titlename = title_name
                 dt.Content = content
